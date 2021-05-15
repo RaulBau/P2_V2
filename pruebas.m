@@ -17,48 +17,41 @@ pkg load video;
 ##Se lee la informacion del video
 info=aviinfo("10292009083301.avi");
 ##Se obtiene un frame en especifico
-##vv=aviread("10292009083301.avi",1250);##p1
-##vv=aviread("10292009083301.avi",2100);##p2
-##vv=aviread("10292009083301.avi",4200);##p3
+vvp1=aviread("10292009083301.avi",1250);##p1
+vvp2=aviread("10292009083301.avi",2100);##p2
+vvp3=aviread("10292009083301.avi",4200);##p3
 
-##vv=aviread("10292009083301.avi",1250);##d1
-##vv=aviread("10292009083301.avi",2100);##d2
-##vv=aviread("10292009083301.avi",3500);##d3
+vvd1=aviread("10292009083301.avi",1250);##d1
+vvd2=aviread("10292009083301.avi",2100);##d2
+vvd3=aviread("10292009083301.avi",3500);##d3
 
 ##Creación de Filtros
 
 ##Se recorta la imagen del filtro
-##imFiltro=rgb2gray(imcrop(vv,[157,192,19,11]));##p1
-##imFiltro=rgb2gray(imcrop(vv,[110,155,17,11]));##p2
-##imFiltro=rgb2gray(imcrop(vv,[155,99,13,5]));##p3
+imFiltrop1=rgb2gray(imcrop(vvp1,[157,192,19,11]));##p1
+imFiltrop2=rgb2gray(imcrop(vvp2,[110,155,17,11]));##p2
+imFiltrop3=rgb2gray(imcrop(vvp3,[155,99,13,5]));##p3
 
-##imFiltro=rgb2gray(imcrop(vv,[91,176,19,11]));##d1
-##imFiltro=rgb2gray(imcrop(vv,[169,145,17,9]));##d2
-##imFiltro=rgb2gray(imcrop(vv,[140,92,15,7]));##d3
-
-##imO=rgb2gray(vv);
-##imshow(imO);
-##return
+imFiltrod1=rgb2gray(imcrop(vvd1,[91,176,19,11]));##d1
+imFiltrod2=rgb2gray(imcrop(vvd2,[169,145,17,9]));##d2
+imFiltrod3=rgb2gray(imcrop(vvd3,[140,92,15,7]));##d3
 
 ##Se completa la imagen para hacerla cuadrada
-##imH=padarray(imFiltro,[64,60]);##p1
-##imH=padarray(imFiltro,[64,61]);##p2
-##imH=padarray(imFiltro,[67,63]);##p3
+imHp1=padarray(imFiltrop1,[64,60]);##p1
+imHp2=padarray(imFiltrop2,[64,61]);##p2
+imHp3=padarray(imFiltrop3,[67,63]);##p3
 
-##imH=padarray(imFiltro,[64,60]);##d1
-##imH=padarray(imFiltro,[65,61]);##d2
-##imH=padarray(imFiltro,[66,62]);##d3
+imHd1=padarray(imFiltrod1,[64,60]);##d1
+imHd2=padarray(imFiltrod2,[65,61]);##d2
+imHd3=padarray(imFiltrod3,[66,62]);##d3
 
-##imwrite(imH,"Filtros/p1.bmp");##p1
-##imwrite(imH,"Filtros/p2.bmp");##p2
-##imwrite(imH,"Filtros/p3.bmp");##p3
+imwrite(imHp1,"Filtros/p1.bmp");##p1
+imwrite(imHp2,"Filtros/p2.bmp");##p2
+imwrite(imHp3,"Filtros/p3.bmp");##p3
 
-##imwrite(imH,"Filtros/d1.bmp");##d1
-##imwrite(imH,"Filtros/d2.bmp");##d2
-##imwrite(imH,"Filtros/d3.bmp");##d3
-
-##imshow(imFiltro);
-##return
+imwrite(imHd1,"Filtros/d1.bmp");##d1
+imwrite(imHd2,"Filtros/d2.bmp");##d2
+imwrite(imHd3,"Filtros/d3.bmp");##d3
 
 ##Fin Creación de Filtros
 
