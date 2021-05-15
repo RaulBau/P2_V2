@@ -77,24 +77,13 @@ NImages=3;
 H_Filtro_D=filtroC_LK(LK,rutaD,NImages,0.6);
 ##FinFiltros
 
-##Creación de la mascara
-mascara=ones(3);
-mascara=mascara*-1;
-mascara(2,2)=10;
-cc=1;
-##Fin Creación mascara
-
-
-####Leemos el filtro
-##imH=imread("filtro.bmp");
-####PAsamos la imagen al dominio de furier
-##imH1=fft2(imH);
-####Obtenemos la informaciï¿½n del video
-##info=aviinfo("10292009083301.avi");
+##Creamos el arreglo de resultados del filtro P
 arr_P=zeros(info.NumFrames/3,7);
+##Creamos el arreglo de resultados del filtro D
 arr_D=zeros(info.NumFrames/3,7);
 
 iCont=1;
+iRec=4200;
 for iRec=1:3:info.NumFrames-130
   ##Obtenemos el frame
   frm=rgb2gray(aviread("10292009083301.avi",iRec));
@@ -107,14 +96,24 @@ for iRec=1:3:info.NumFrames-130
   imO=frm;
   
   ##Aplicamos el filtro P
+  ##Se crea el filtro
   O_Filtro=kLawSpaceV(LK,frmRes);
   resp=O_Filtro.*(conj(H_Filtro_P)./abs(H_Filtro_P));
+  ##Aplicamos lla correlación
   corl=real(ifftshift(ifft2(resp)));
-  maximo1=max(corl(:));
+  ##Creamos un arreglo con los datos de la correlación
+  vmax=reshape(corl,[],1);
+  ##Ordenamos los datos
+  vmax10=sort(vmax,'descend');
+  ##Obtemos el primer valor maximo
+  maximo1=vmax10(1);
+  ##Obtenemos el segundo valor maximo
+  maximo2=vmax10(2);
+  ##Buscamos el maximo1 en la correlación
   [yy1,xx1]=find(maximo1==corl);
-  corl2=imfilter(corl,mascara);
-  maximo2=max(corl2(:));
-  [yy2,xx2]=find(maximo2==corl2);
+  ##Buscamos el maximo2 en la correlación
+  [yy2,xx2]=find(maximo2==corl);
+  ##Guardamos los datos en el arreglo
   arr_P(iCont,1)=iRec;
   arr_P(iCont,2)=xx1;
   arr_P(iCont,3)=yy1;
@@ -124,14 +123,24 @@ for iRec=1:3:info.NumFrames-130
   arr_P(iCont,7)=maximo2;
   
   ##Aplocamos el filtro D
+  ##Se crea el filtro
   O_Filtro=kLawSpaceV(LK,frmRes);
   resp=O_Filtro.*(conj(H_Filtro_D)./abs(H_Filtro_D));
+  ##Aplicamos lla correlación
   corl=real(ifftshift(ifft2(resp)));
-  maximo1=max(corl(:));
+  ##Creamos un arreglo con los datos de la correlación
+  vmax=reshape(corl,[],1);
+  ##Ordenamos los datos
+  vmax10=sort(vmax,'descend');
+  ##Obtemos el primer valor maximo
+  maximo1=vmax10(1);
+  ##Obtenemos el segundo valor maximo
+  maximo2=vmax10(2);
+  ##Buscamos el maximo1 en la correlación
   [yy1,xx1]=find(maximo1==corl);
-  corl2=imfilter(corl,mascara);
-  maximo2=max(corl2(:));
-  [yy2,xx2]=find(maximo2==corl2);
+  ##Buscamos el maximo2 en la correlación
+  [yy2,xx2]=find(maximo2==corl);
+  ##Guardamos los datos en el arreglo
   arr_D(iCont,1)=iRec;
   arr_D(iCont,2)=xx1;
   arr_D(iCont,3)=yy1;
