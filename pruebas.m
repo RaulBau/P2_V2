@@ -5,33 +5,51 @@ clear;
 ##Se cargan los paquetes
 pkg load image;
 pkg load video;
-
+##140
 ##Se lee la informacion del video
-info=aviinfo("Examen2.avi");
+info=aviinfo("10292009083301.avi");
 ##Se obtiene un frame en especifico
-vv=aviread("Examen2.avi",1735);
+##vv=aviread("10292009083301.avi",1250);##p1
+##vv=aviread("10292009083301.avi",2100);##p2
+vv=aviread("10292009083301.avi",4200);##p3
+
+##Filtros
+
 ##Se recorta la imagen del filtro
-##im2=rgb2gray(imcrop(vv,[144,148,15,11]));
+##imFiltro=rgb2gray(imcrop(vv,[157,192,19,11]));##p1
+##imFiltro=rgb2gray(imcrop(vv,[110,155,17,11]));##p2
+imFiltro=rgb2gray(imcrop(vv,[155,99,13,5]));##p3
+
+##Fin Filtros
+
 ##Se recorta la imagen del fondo
 imO=rgb2gray(imcrop(vv,[105,45,195,195]));
+imO=rgb2gray(vv);
+
+##imshow(imO);
+##return
 
 ##Se completa la imagen para hacerla cuadrada
-##imH=padarray(im2,[92,90]);
-##imshow(im2);
-##imwrite(imH,"filtro.bmp");
-##return
+##imH=padarray(imFiltro,[64,60]);##p1
+##imH=padarray(imFiltro,[64,61]);##p2
+imH=padarray(imFiltro,[67,63]);##p3
+imshow(imFiltro);
+##imwrite(imH,"Filtros/p1.bmp");##p1
+##imwrite(imH,"Filtros/p2.bmp");##p2
+imwrite(imH,"Filtros/p3.bmp");##p3
+return
 
 ##Leemos el filtro
 imH=imread("filtro.bmp");
 ##PAsamos la imagen al dominio de furier
 imH1=fft2(imH);
-##Obtenemos la información del video
-info=aviinfo("Examen2.avi");
+##Obtenemos la informaciï¿½n del video
+info=aviinfo("10292009083301.avi");
 arr=zeros(info.NumFrames/3,6);
 
 iCont=1;
 for iRec=1:3:info.NumFrames-130
-  im1=rgb2gray(aviread("Examen2.avi",iRec));
+  im1=rgb2gray(aviread("10292009083301.avi",iRec));
   imO=imcrop(im1,[105,45,195,195]);
   imF=imO;
   imO=fft2(imO);
